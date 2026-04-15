@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mana Vazhi — மன வழி</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Tamil:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm: #F2EBE0;
+    --earth: #C4956A;
+    --deep: #3D2B1F;
+    --sage: #7A8C6E;
+    --rust: #9B4E2E;
+    --muted: #8C7B6E;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--deep);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .tamil { font-family: 'Noto Sans Tamil', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(61,43,31,0.1);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--deep);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--earth); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--earth); }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 60%, rgba(196,149,106,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(122,140,110,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: 0.9rem;
+    color: var(--earth);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em { color: var(--earth); font-style: italic; }
+  .hero-subtitle {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--muted);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-desc {
+    max-width: 500px;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-cta {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    background: var(--deep);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .hero-cta:hover { background: var(--earth); transform: translateY(-2px); }
+  .hero-divider {
+    position: absolute; bottom: 2rem;
+    font-size: 1.5rem; color: var(--earth); opacity: 0.4;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* CATEGORIES */
+  .categories {
+    padding: 4rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--earth); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 400;
+    color: var(--deep); margin-bottom: 2.5rem;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .cat-card {
+    background: var(--white);
+    border: 1px solid rgba(61,43,31,0.08);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .cat-card:hover { transform: translateY(-4px); border-color: var(--earth); }
+  .cat-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .cat-name { font-size: 0.9rem; font-weight: 500; color: var(--deep); margin-bottom: 0.25rem; }
+  .cat-name-tamil { font-family: 'Noto Sans Tamil', sans-serif; font-size: 0.8rem; color: var(--muted); }
+
+  /* POSTS */
+  .posts-section {
+    padding: 3rem 2rem 5rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  @media(max-width: 700px) { .posts-grid { grid-template-columns: 1fr; } nav .nav-links { display: none; } }
+
+  /* FEATURED POST */
+  .featured-post {
+    background: var(--white);
+    border: 1px solid rgba(61,43,31,0.08);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .featured-post:hover { transform: translateY(-3px); }
+  .post-img-placeholder {
+    height: 260px;
+    background: linear-gradient(135deg, var(--warm) 0%, rgba(196,149,106,0.3) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: var(--earth);
+  }
+  .post-body { padding: 1.75rem; }
+  .post-tag {
+    display: inline-block;
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--earth); border: 1px solid var(--earth);
+    padding: 2px 10px; margin-bottom: 0.75rem;
+  }
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 400; line-height: 1.35;
+    color: var(--deep); margin-bottom: 0.5rem;
+  }
+  .post-title-tamil {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-size: 1rem; color: var(--muted); margin-bottom: 0.75rem;
+  }
+  .post-excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; }
+  .post-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+  .read-more {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--earth); text-decoration: none; border-bottom: 1px solid var(--earth);
+    padding-bottom: 1px; transition: color 0.2s;
+  }
+  .read-more:hover { color: var(--rust); border-color: var(--rust); }
+
+  /* SIDEBAR POSTS */
+  .sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+  .side-post {
+    background: var(--white);
+    border: 1px solid rgba(61,43,31,0.08);
+    padding: 1.25rem;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .side-post:hover { transform: translateX(4px); border-left: 3px solid var(--earth); }
+  .side-tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.4rem; }
+  .side-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; color: var(--deep); line-height: 1.4; margin-bottom: 0.3rem; }
+  .side-tamil { font-family: 'Noto Sans Tamil', sans-serif; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .side-meta { font-size: 0.7rem; color: var(--muted); }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    background: var(--deep);
+    color: var(--cream);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .about-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 400; margin-bottom: 1rem;
+  }
+  .about-strip h2 em { color: var(--earth); }
+  .about-strip p { max-width: 540px; margin: 0 auto 1.5rem; font-size: 0.95rem; opacity: 0.75; line-height: 1.9; }
+  .about-tamil { font-family: 'Noto Sans Tamil', sans-serif; font-size: 0.85rem; opacity: 0.5; margin-bottom: 1.5rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--warm);
+    border-top: 1px solid rgba(61,43,31,0.1);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.8rem; color: var(--muted);
+  }
+  footer .f-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--deep); margin-bottom: 0.5rem;
+  }
+  footer .f-logo span { color: var(--earth); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Mana <span>Vazhi</span> <span class="tamil" style="font-size:0.9rem">மன வழி</span></a>
+  <ul class="nav-links">
+    <li><a href="#posts">Posts</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#">Tamil</a></li>
+    <li><a href="#">English</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tamil">மன வழி — The Path Within</p>
+  <h1 class="hero-title">Mana <em>Vazhi</em></h1>
+  <p class="hero-subtitle tamil">உள்ளத்தின் குரல்</p>
+  <p class="hero-desc">Reflections on relationships, spirituality, food, and the quiet joy of simple living — in Tamil &amp; English.</p>
+  <a href="#posts" class="hero-cta">Read the blog</a>
+  <div class="hero-divider">↓</div>
+</section>
+
+<section class="categories">
+  <p class="section-label">Explore by theme</p>
+  <h2 class="section-title">What we talk about</h2>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-icon">🕯️</div>
+      <div class="cat-name">Spirituality</div>
+      <div class="cat-name-tamil tamil">ஆன்மீகம்</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🤝</div>
+      <div class="cat-name">Relationships</div>
+      <div class="cat-name-tamil tamil">உறவுகள்</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🍛</div>
+      <div class="cat-name">Food & Health</div>
+      <div class="cat-name-tamil tamil">உணவும் உடலும்</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">☀️</div>
+      <div class="cat-name">Simple Living</div>
+      <div class="cat-name-tamil tamil">எளிய வாழ்வு</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🌙</div>
+      <div class="cat-name">Inner Peace</div>
+      <div class="cat-name-tamil tamil">மன அமைதி</div>
+    </div>
+  </div>
+</section>
+
+<section class="posts-section" id="posts">
+  <p class="section-label">Latest writings</p>
+  <h2 class="section-title">From the heart</h2>
+  <div class="posts-grid">
+    <article class="featured-post">
+      <div class="post-img-placeholder">🕯️</div>
+      <div class="post-body">
+        <span class="post-tag">Spirituality</span>
+        <h2 class="post-title">The Quiet Temple Inside You</h2>
+        <p class="post-title-tamil tamil">உன்னுள்ளே இருக்கும் அமைதியான கோயில்</p>
+        <p class="post-excerpt">We travel miles to find peace in temples and sacred places. But what if the quietest, most sacred space has always been within us — waiting, patient, untouched by the noise of the world?</p>
+        <p class="post-meta">Karthikeyan &nbsp;·&nbsp; April 2025 &nbsp;·&nbsp; 5 min read</p>
+        <a href="post.html" class="read-more">Read more →</a>
+      </div>
+    </article>
+    <aside class="sidebar">
+      <div class="side-post">
+        <div class="side-tag">Relationships</div>
+        <div class="side-title">Why Some Bonds Feel Like Home</div>
+        <div class="side-tamil tamil">சில உறவுகள் ஏன் வீடு போல் தோன்றுகின்றன</div>
+        <div class="side-meta">April 2025 · 4 min</div>
+      </div>
+      <div class="side-post">
+        <div class="side-tag">Food & Health</div>
+        <div class="side-title">What My Grandmother's Kitchen Taught Me</div>
+        <div class="side-tamil tamil">பாட்டியின் சமையலறை சொன்னது</div>
+        <div class="side-meta">March 2025 · 3 min</div>
+      </div>
+      <div class="side-post">
+        <div class="side-tag">Simple Living</div>
+        <div class="side-title">The Joy of Doing Nothing Well</div>
+        <div class="side-tamil tamil">சும்மா இருப்பதிலும் ஒரு இன்பம் உண்டு</div>
+        <div class="side-meta">March 2025 · 3 min</div>
+      </div>
+      <div class="side-post">
+        <div class="side-tag">Inner Peace</div>
+        <div class="side-title">When Silence Speaks Louder Than Words</div>
+        <div class="side-tamil tamil">மௌனம் பேசும் நேரங்கள்</div>
+        <div class="side-meta">February 2025 · 4 min</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <h2>Written from <em>the soul</em></h2>
+  <p class="about-tamil tamil">உள்ளத்தில் இருந்து எழுதப்பட்டது</p>
+  <p>This is a space for honest, warm reflections on life — the bonds we share, the food that heals us, the silence that restores us, and the small moments that make life beautiful. Written from Erode, Tamil Nadu, for anyone who seeks depth in simplicity.</p>
+</section>
+
+<footer>
+  <div class="f-logo">Mana <span>Vazhi</span></div>
+  <p class="tamil" style="margin-bottom:0.5rem">மன வழி — உள்ளத்தின் குரல்</p>
+  <p>Written with love from Erode, Tamil Nadu &nbsp;·&nbsp; Tamil &amp; English</p>
+</footer>
+
+</body>
+</html>
